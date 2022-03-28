@@ -48,7 +48,7 @@ router.get("/:id", (req, res) => {
     });
 });
 
-// create new product
+// create a new product
 router.post("/", (req, res) => {
   /* req.body should look like this...
     {
@@ -80,7 +80,7 @@ router.post("/", (req, res) => {
     });
 });
 
-// update product
+// update a product
 router.put("/:id", (req, res) => {
   // update product data
   Product.update(req.body, {
@@ -123,7 +123,16 @@ router.put("/:id", (req, res) => {
 });
 
 router.delete("/:id", (req, res) => {
-  // delete one product by its `id` value
+  Product.destroy({
+    where: {
+      id: req.params.id,
+    },
+  })
+    .then((data) => res.json(data))
+    .catch((err) => {
+      console.log(err);
+      res.status(500).json(err);
+    });
 });
 
 module.exports = router;
