@@ -1,6 +1,7 @@
 const router = require("express").Router();
 const { Category, Product } = require("../../models");
 
+// Get all categories
 router.get("/", (req, res) => {
   Category.findAll({
     attributes: ["id", "category_name"],
@@ -18,6 +19,7 @@ router.get("/", (req, res) => {
     });
 });
 
+// Get one category
 router.get("/:id", (req, res) => {
   Category.findOne({
     where: {
@@ -38,6 +40,7 @@ router.get("/:id", (req, res) => {
     });
 });
 
+// Create a category
 router.post("/", (req, res) => {
   Category.create({
     category_name: req.body.category_name,
@@ -49,6 +52,7 @@ router.post("/", (req, res) => {
     });
 });
 
+// Update a category's name
 router.put("/:id", (req, res) => {
   Category.update(
     {
@@ -67,6 +71,7 @@ router.put("/:id", (req, res) => {
     });
 });
 
+// Delete a category
 router.delete("/:id", (req, res) => {
   Category.destroy({
     where: {

@@ -1,7 +1,7 @@
 const router = require("express").Router();
 const { Product, Category, Tag, ProductTag } = require("../../models");
 
-// get all products
+// Get all products
 router.get("/", (req, res) => {
   Product.findAll({
     attributes: ["id", "product_name", "price", "stock", "category_id"],
@@ -23,7 +23,7 @@ router.get("/", (req, res) => {
     });
 });
 
-// get one product
+// Get one product
 router.get("/:id", (req, res) => {
   Product.findOne({
     where: {
@@ -48,7 +48,7 @@ router.get("/:id", (req, res) => {
     });
 });
 
-// create a new product
+// Create a new product
 router.post("/", (req, res) => {
   /* req.body should look like this...
     {
@@ -80,7 +80,7 @@ router.post("/", (req, res) => {
     });
 });
 
-// update a product
+// Update a product
 router.put("/:id", (req, res) => {
   // update product data
   Product.update(req.body, {
@@ -121,6 +121,7 @@ router.put("/:id", (req, res) => {
     });
 });
 
+// Delete a product
 router.delete("/:id", (req, res) => {
   Product.destroy({
     where: {

@@ -1,6 +1,7 @@
 const router = require("express").Router();
 const { Tag, Product, ProductTag } = require("../../models");
 
+// Get all tags
 router.get("/", (req, res) => {
   Tag.findAll({
     attributes: ["id", "tag_name"],
@@ -18,6 +19,7 @@ router.get("/", (req, res) => {
     });
 });
 
+// Get one tag
 router.get("/:id", (req, res) => {
   Tag.findOne({
     where: {
@@ -38,7 +40,7 @@ router.get("/:id", (req, res) => {
     });
 });
 
-// create a new tag
+// Create a new tag
 router.post("/", (req, res) => {
   /* req.body should look like this...
     {
@@ -66,7 +68,7 @@ router.post("/", (req, res) => {
     });
 });
 
-// update a tag's name by its `id` value
+// Update a tag's name by its `id` value
 router.put("/:id", (req, res) => {
   Tag.update(req.body, {
     where: {
@@ -106,6 +108,7 @@ router.put("/:id", (req, res) => {
     });
 });
 
+// Delete a Tag
 router.delete("/:id", (req, res) => {
   Tag.destroy({
     where: {
