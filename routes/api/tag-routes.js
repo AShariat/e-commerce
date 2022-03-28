@@ -38,8 +38,32 @@ router.get("/:id", (req, res) => {
     });
 });
 
+// create a new tag
 router.post("/", (req, res) => {
-  // create a new tag
+  /* req.body should look like this...
+    {
+      tag_name: "Black",
+      productIds: [1, 2, 3, 4]
+    }
+  */
+  Tag.create(req.body)
+    .then((tag) => {
+      if (req.body.productIds.length) {
+        const productTagIdArr = req.body.productIds.map((product_id) => {
+          return {
+            tag_id: tag.id,
+            product_id,
+          };
+        });
+        return ProductTag.bulkCreate(productTagIdArr);
+      }
+      res.status(200).json(tag);
+    })
+    .then((productTagIds) => res.status(200).json(productTagIds))
+    .catch((err) => {
+      console.log(err);
+      res.status(400).json(err);
+    });
 });
 
 router.put("/:id", (req, res) => {
